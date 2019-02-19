@@ -1,0 +1,13 @@
+
+spring.application.name=eureka-server
+
+# default port for eureka server
+server.port=8761
+
+eureka.client.register-with-eureka=false
+eureka.client.fetch-registry=false
+# eureka by default will register itself as a client. So, we need to set it to false.
+# What's a client server? See other microservices (image, gallery, auth, etc).
+
+#eureka.client.serviceUrl.defaultZone=http://${eureka.instance.hostname}:${server.port}/eureka/
+#eureka.server.eviction-interval-timer-in-ms=1000

@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: images-service
+  
+  jmx:
+    default-domain: images-service
+
+info:
+  component: images-service            
+
+#ribbon:
+#   eureka:
+#      enabled: true
+#   MaxAutoRetries: 3 
+#   MaxAutoRetriesNextServer: 1 
+#   ReadTimeout: ${ribbon.ReadTimeout}
+        
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+  
+  metadataMap:
+      instanceId: ${spring.application.name}
+  client:
+    serviceUrl:
+      defaultZone: ${registry.host}
+    healthcheck:
+      enabled: true
+    lease:
+      duration: 5
+    
+hystrix:
+    command:
+        default:
+            execution:
+                isolation:
+                    thread:
+                        timeoutInMilliseconds: ${hystrix.thread.timeoutInMilliseconds}
+hystrix:
+    command:
+      getImages:
+         execution:
+            isolation:
+               thread:
+                  timeoutInMilliseconds: 5000
+         circuitBreaker:
+            errorThresholdPercentage: 10                                                 
+        
+#feign:
+#  hystrix:
+#    enabled: false
+                
+#spring:zipkin.sender.type: web    
+  
+#management.endpoints.web.exposure.include= hystrix.stream

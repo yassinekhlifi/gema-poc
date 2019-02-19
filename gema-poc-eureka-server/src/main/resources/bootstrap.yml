@@ -1,0 +1,18 @@
+server:
+  port: 8761
+  
+spring:
+  application:
+    name: eureka-server
+  jmx:
+    default-domain: eureka-service
+  profiles:
+# add -Dspring.profiles.active=dev in VM arguments to force profile
+    active: dev
+cloud:
+   config:
+      uri: http://localhost:8888
+
+management:
+  security:
+    enabled: false

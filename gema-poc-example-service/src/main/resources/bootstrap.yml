@@ -1,0 +1,25 @@
+server:
+  port: 8661
+
+spring:
+  cloud:
+    config:
+      uri: http://localhost:8888
+  sleuth:
+    sampler:
+      probability: 1
+  zipkin:
+    sender:
+       type: web
+    base-url: ${zipkin.baseUrl}
+  application:
+    name: images-service
+  jmx:
+    default-domain: images-service   
+   
+management:
+  security:
+    enabled: false
+  
+info:
+  component: images-service    

@@ -1,0 +1,47 @@
+eureka:
+  client:
+    fetchRegistry: false
+    healthcheck:
+      enabled: true
+      lease:
+        duration: 5
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: ${registry.host}
+  instance:
+    leaseExpirationDurationInSeconds: 2
+    leaseRenewalIntervalInSeconds: 1
+  metadataMap:
+    instanceId: ${spring.application.name}
+feign:
+  hystrix:
+    enabled: false
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: ${hystrix.thread.timeoutInMilliseconds}
+    getImages:
+      circuitBreaker:
+        errorThresholdPercentage: 10                                                 
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+
+management:
+  endpoints:
+    web:
+      exposure:
+         include: '*'
+        #include: hystrix.stream, info, health  
+ribbon:
+  eureka:
+    MaxAutoRetries: 3
+    MaxAutoRetriesNextServer: 1
+    ReadTimeout: ${ribbon.ReadTimeout}
+    enabled: true
+    
+

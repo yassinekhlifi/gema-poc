@@ -1,0 +1,47 @@
+info:
+  component: API Gateway
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+  
+  metadataMap:
+      instanceId: ${spring.application.name}
+  client:
+    serviceUrl:     
+      defaultZone: ${registry.host}
+    healthcheck:
+      enabled: true
+    lease:
+      duration: 5
+      
+zuul:
+  host:
+        connect-timeout-millis: 10000
+        socket-timeout-millis: 60000
+  routes:
+    images:
+      path: /images
+      serviceId: images-service
+  debug:
+     request: true  
+
+ribbon:
+   eureka:
+      enabled: true
+   MaxAutoRetries: 3 
+   MaxAutoRetriesNextServer: 1 
+   ReadTimeout: ${ribbon.ReadTimeout}
+   
+management:
+  security:
+    enabled: false
+    
+hystrix:
+   command:
+      default:
+         execution:
+            isolation:
+               thread:
+                  timeoutInMilliseconds: ${hystrix.thread.timeoutInMilliseconds}
